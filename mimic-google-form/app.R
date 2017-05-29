@@ -62,56 +62,22 @@ adminUsers <- c("admin", "prof")
 
 # info for sharing this app on facebook/twitter
 share <- list(
-  title = "Mimicking a Google Form with a Shiny app",
-  url = "http://daattali.com/shiny/mimic-google-form/",
-  image = "http://daattali.com/shiny/img/mimic.png",
-  description = "Learn how to create a Shiny app that allows users to submit responses to a form. Submissions get stored permanently and can be loaded back into the app.",
-  twitter_user = "daattali"
 )
 
 shinyApp(
   ui = fluidPage(
     shinyjs::useShinyjs(),
     shinyjs::inlineCSS(appCSS),
-    title = "Mimicking a Google Form with a Shiny app",
+    title = "My Form with Shiny code",
     tags$head(
-      tags$link(rel = "shortcut icon", type="image/x-icon", href="http://daattali.com/shiny/img/favicon.ico"),
-
-      # Facebook OpenGraph tags
-      tags$meta(property = "og:title", content = share$title),
-      tags$meta(property = "og:type", content = "website"),
-      tags$meta(property = "og:url", content = share$url),
-      tags$meta(property = "og:image", content = share$image),
-      tags$meta(property = "og:description", content = share$description),
+    ),
     
-      # Twitter summary cards
-      tags$meta(name = "twitter:card", content = "summary"),
-      tags$meta(name = "twitter:site", content = paste0("@", share$twitter_user)),
-      tags$meta(name = "twitter:creator", content = paste0("@", share$twitter_user)),
-      tags$meta(name = "twitter:title", content = share$title),
-      tags$meta(name = "twitter:description", content = share$description),
-      tags$meta(name = "twitter:image", content = share$image)
-    ),
-    tags$a(
-      href="https://github.com/daattali/shiny-server/tree/master/mimic-google-form",
-      tags$img(style="position: absolute; top: 0; right: 0; border: 0;",
-               src="github-green-right.png",
-               alt="Fork me on GitHub")
-    ),
     div(id = "header",
-      h1("Mimicking a Google Form with a Shiny app"),
-      h4("This app is a supplement to my",
-         a(href = "http://deanattali.com/2015/06/14/mimicking-google-form-shiny/",
-           "blog post on the topic")
-      ),
+      h1("My Form with Shiny code"),
       strong( 
-      span("Created by "),
-      a("Dean Attali", href = "http://deanattali.com"),
-      HTML("&bull;"),
-      span("Code"),
-      a("on GitHub", href = "https://github.com/daattali/shiny-server/tree/master/mimic-google-form"),
-      HTML("&bull;"),
-      a("More apps", href = "http://daattali.com/shiny/"), "by Dean")
+      
+      a("Sai Mahesh")
+      )
     ),
     
     fluidRow(
@@ -208,7 +174,7 @@ shinyApp(
       
       div(
         id = "adminPanel",
-        h2("Previous responses (only visible to admins)"),
+        h2("Previous responses "),
         downloadButton("downloadBtn", "Download responses"), br(), br(),
         DT::dataTableOutput("responsesTable") 
       )
@@ -230,6 +196,7 @@ shinyApp(
     output$downloadBtn <- downloadHandler(
       filename = function() { 
         sprintf("mimic-google-form_%s.csv", humanTime())
+        #sprintf("get_me_responses.csv", humanTime())
       },
       content = function(file) {
         write.csv(loadData(), file, row.names = FALSE)
